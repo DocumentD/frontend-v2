@@ -1,1 +1,6 @@
-<p>navigation-bar works!</p>
+<mat-toolbar class="app-toolbar" color="primary">
+  <span>{{ true ? "DokumentD" : "D" }}</span>
+  <button mat-button [routerLink]="['/search']">Suche</button>
+  <span class="spacer"></span>
+  <button mat-button [routerLink]="['/settings']">Einstellungen</button>
+</mat-toolbar>
