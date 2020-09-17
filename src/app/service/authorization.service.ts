@@ -36,7 +36,8 @@ export class AuthorizationService {
         .subscribe(
           (resp) => {
             this.handleUserDataResponse(resp.body);
-            this.cookieService.set('Token', resp.headers.get('Token'));
+            this.token = resp.headers.get('Token');
+            this.cookieService.set('Token', this.token);
             resolve();
           },
           (error) => {
