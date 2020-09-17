@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorizationService } from '../../service/authorization.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authorizationService: AuthorizationService
+    private authorizationService: AuthorizationService,
+    private cookieService: CookieService
   ) {}
 
   async ngOnInit() {
@@ -28,9 +30,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(3)]],
     });
 
-    if (await this.authorizationService.isLoggedIn()) {
-      await this.router.navigate([this.returnUrl]);
-    }
+    this.checkAutoLogin();
   }
 
   async onSubmit() {
@@ -42,6 +42,18 @@ export class LoginComponent implements OnInit {
         .login(username, password)
         .then(() => this.router.navigate([this.returnUrl]))
         .catch(() => (this.loginValid = false));
+    }
+  }
+
+  private async checkAutoLogin(): Promise<void> {
+    if (await this.authorizationService.isLoggedIn()) {
+      await this.router.navigate([this.returnUrl]);
+    } else {
+      if (this.cookieService.check('Token')) {
+        this.authorizationService
+          .loginWithToken(this.cookieService.get('Token'))
+          .then(() => this.router.navigate([this.returnUrl]));
+      }
     }
   }
 }

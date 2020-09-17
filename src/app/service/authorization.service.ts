@@ -41,7 +41,25 @@ export class AuthorizationService {
             resolve();
           },
           (error) => {
-            this.logout();
+            reject();
+          }
+        );
+    });
+  }
+
+  public async loginWithToken(token: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.http
+        .post<User>(environment.apiEndpoint + '/loginwithtoken', { token })
+        .subscribe(
+          (resp) => {
+            this.handleUserDataResponse(resp);
+            this.token = token;
+            this.cookieService.set('Token', token);
+            this.cookieService.delete('Token');
+            resolve();
+          },
+          (error) => {
             reject();
           }
         );
@@ -49,7 +67,7 @@ export class AuthorizationService {
   }
 
   public async logout(): Promise<void> {
-    this.cookieService.delete('token');
+    this.cookieService.delete('Token');
     this.isAuthenticated.next(false);
     this.loggedInUser.next(null);
     this.user = null;

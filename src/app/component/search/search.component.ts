@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       )
       .subscribe();
 
-    // on sort or paginate events, load a new page
+    // paginate events, load a new page
     this.paginator.page.pipe(tap(() => this.loadDocumentsPage())).subscribe();
   }
 

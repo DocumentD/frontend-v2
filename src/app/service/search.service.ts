@@ -15,7 +15,6 @@ export class SearchService {
     pageNumber = 0,
     pageSize = 3
   ): Observable<SearchResponse> {
-    console.log(filter);
     return this.http.get<SearchResponse>(
       environment.apiEndpoint + '/document/search',
       {
