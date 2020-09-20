@@ -3,10 +3,6 @@
   <input matInput #input />
 </mat-form-field>
 
-<div class="spinner-container" *ngIf="dataSource.loading$ | async">
-  <mat-spinner></mat-spinner>
-</div>
-
 <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>Titel</mat-header-cell>
@@ -37,6 +33,10 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
+
+<div class="spinner-container" *ngIf="dataSource.loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
 
 <mat-paginator
   [length]="dataSource.documentsSize$ | async"
