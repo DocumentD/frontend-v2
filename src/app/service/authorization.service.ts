@@ -56,7 +56,6 @@ export class AuthorizationService {
             this.handleUserDataResponse(resp);
             this.token = token;
             this.cookieService.set('Token', token);
-            this.cookieService.delete('Token');
             resolve();
           },
           (error) => {
