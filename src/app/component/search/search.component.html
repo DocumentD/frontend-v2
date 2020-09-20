@@ -40,6 +40,6 @@
 
 <mat-paginator
   [length]="dataSource.documentsSize$ | async"
-  [pageSize]="10"
-  [pageSizeOptions]="[10, 20, 50]"
+  [pageSize]="pageSizeOptions[0]"
+  [pageSizeOptions]="pageSizeOptions"
 ></mat-paginator>
