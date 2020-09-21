@@ -14,8 +14,9 @@ import { DocumentDataSource } from '../../datasource/document-data-source';
 import { SearchService } from '../../service/search.service';
 import { DocumentService } from '../../service/document.service';
 import { Document } from '../../entity/document';
-import { element } from 'protractor';
 import { Match } from '../../entity/match';
+import { MatDialog } from '@angular/material/dialog';
+import { DocumentEditComponent } from '../document-edit/document-edit.component';
 
 @Component({
   selector: 'app-search',
@@ -43,7 +44,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   constructor(
     private searchService: SearchService,
-    public documentService: DocumentService
+    public documentService: DocumentService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -142,5 +144,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
     } else {
       return original;
     }
+  }
+
+  openDocumentDetails(document: Document): void {
+    console.log('Blub');
+    console.log(document);
+    this.dialog.open(DocumentEditComponent, {
+      minWidth: '250px',
+      data: document,
+      disableClose: true,
+    });
   }
 }

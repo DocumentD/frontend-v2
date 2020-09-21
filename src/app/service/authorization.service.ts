@@ -82,6 +82,13 @@ export class AuthorizationService {
   }
 
   private handleUserDataResponse(data: User): void {
+    if (data.categories === null) {
+      data.categories = [];
+    }
+
+    if (data.companies === null) {
+      data.companies = [];
+    }
     this.user = data;
     this.isAuthenticated.next(true);
     this.loggedInUser.next(this.user);

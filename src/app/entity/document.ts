@@ -1,8 +1,8 @@
 export interface Document {
   documentid: string;
   title: string;
-  documentdate: string;
-  deletedate?: string;
+  documentdate: Date;
+  deletedate?: Date;
   pages: number;
   textcontent?: string;
   pdftitle?: string;

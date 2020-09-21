@@ -68,7 +68,7 @@
     mat-row
     *matRowDef="let element; columns: displayedColumns"
     class="example-element-row"
-    (click)="expandedElement = expandedElement === element ? null : element"
+    (click)="openDocumentDetails(element)"
   ></tr>
   <tr
     mat-row

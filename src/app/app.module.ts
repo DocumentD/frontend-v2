@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorizationHeaderInterceptor } from './interceptor/authorization-header.interceptor';
+import { DocumentEditComponent } from './component/document-edit/document-edit.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AuthorizationHeaderInterceptor } from './interceptor/authorization-head
     NavigationBarComponent,
     SearchComponent,
     LoginComponent,
+    DocumentEditComponent,
   ],
   imports: [
     BrowserModule,

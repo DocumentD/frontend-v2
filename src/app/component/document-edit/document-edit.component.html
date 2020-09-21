@@ -1,0 +1,73 @@
+<h1 mat-dialog-title>Dokument</h1>
+<div mat-dialog-content>
+  <form class="example-form" [formGroup]="form">
+    <mat-form-field class="example-full-width">
+      <mat-label>ID (disabled)</mat-label>
+      <input matInput disabled [value]="data.documentid" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Titel</mat-label>
+      <input
+        matInput
+        #title
+        maxlength="64"
+        placeholder="Tankrechnung"
+        formControlName="title"
+        required
+      />
+      <mat-hint align="end">{{ title.value.length }} / 64</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Firma</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="company"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredCompanies | async"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Kategory</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="category"
+        [matAutocomplete]="auto2"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredCategories | async"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Dokument Datum</mat-label>
+      <input matInput type="date" formControlName="documentDate" required />
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Lösch Datum</mat-label>
+      <input matInput type="date" formControlName="deleteDate" />
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" (click)="onDeleteClick()">
+    Löschen
+  </button>
+  <span class="spacer"></span>
+  <button mat-button (click)="onNoClick()">Abbrechen</button>
+  <button mat-button cdkFocusInitial (click)="formSubmit()">Speichern</button>
+</div>
