@@ -3,4 +3,12 @@
   <button mat-button [routerLink]="['/search']">Suche</button>
   <span class="spacer"></span>
   <button mat-button [routerLink]="['/settings']">Einstellungen</button>
+  <button
+    mat-mini-fab
+    [disabled]="!(authorizationService.isLoggedInAsObservable() | async)"
+    (click)="openFileDialog()"
+  >
+    <mat-icon>publish</mat-icon>
+  </button>
 </mat-toolbar>
+<input type="file" hidden multiple (change)="handle($event)" accept=".pdf" />

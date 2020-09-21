@@ -26,4 +26,22 @@ export class DocumentService {
         );
       });
   }
+
+  uploadFile(fileToUpload: File): Promise<void> {
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return new Promise<void>((resolve, reject) => {
+      this.http
+        .post<Document>(environment.apiEndpoint + '/document/upload', formData)
+        .subscribe(
+          (data) => {
+            resolve();
+          },
+          (error) => {
+            console.log(error);
+            reject();
+          }
+        );
+    });
+  }
 }

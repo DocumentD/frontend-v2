@@ -77,6 +77,10 @@ export class AuthorizationService {
     return this.isAuthenticated.getValue();
   }
 
+  public isLoggedInAsObservable(): Observable<boolean> {
+    return this.isAuthenticated.asObservable();
+  }
+
   public getLoggedInUser(): Observable<User> {
     return this.loggedInUser.asObservable();
   }
