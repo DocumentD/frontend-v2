@@ -30,6 +30,20 @@
     }}</mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef>Aktion</mat-header-cell>
+    <mat-cell class="duration-cell" *matCellDef="let document">
+      <button
+        mat-icon-button
+        (click)="openDocument($event, document)"
+        matTooltip="Dokument öffnen"
+        [matTooltipShowDelay]="500"
+      >
+        <mat-icon style="color: black">attach_file</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>

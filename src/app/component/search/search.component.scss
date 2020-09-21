@@ -11,3 +11,8 @@ table {
   justify-content: center;
   align-items: center;
 }
+
+.mat-column-action {
+  min-width: 30px;
+  max-width: 2% !important;
+}
