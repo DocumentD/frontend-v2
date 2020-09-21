@@ -4,13 +4,23 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { AuthorizationService } from '../service/authorization.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthorizationHeaderInterceptor implements HttpInterceptor {
   constructor(private authorizationService: AuthorizationService) {}
+
+  private handleAuthError(err: HttpErrorResponse): Observable<any> {
+    if (err.status === 401 || err.status === 403) {
+      this.authorizationService.logout();
+      return of(null);
+    }
+    return throwError(err);
+  }
 
   // HTTP Interceptor to add Auhtoken as Parameter when User is logged in
   intercept(
@@ -28,6 +38,8 @@ export class AuthorizationHeaderInterceptor implements HttpInterceptor {
         Authorization: 'Bearer ' + this.authorizationService.token,
       },
     });
-    return next.handle(customReq);
+    return next
+      .handle(customReq)
+      .pipe(catchError((x) => this.handleAuthError(x)));
   }
 }
