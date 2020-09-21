@@ -1,8 +1,8 @@
 export interface Document {
   documentid: string;
   title: string;
-  documentdate: Date;
-  deletedate?: Date;
+  documentdate: string;
+  deletedate?: string;
   pages: number;
   textcontent?: string;
   pdftitle?: string;
@@ -10,4 +10,5 @@ export interface Document {
   category?: string;
   tags: string[];
   filename: string;
+  _matchesInfo: any[];
 }
