@@ -10,6 +10,7 @@ import { DocumentService } from '../../service/document.service';
 })
 export class NavigationBarComponent implements OnInit {
   isLoggedIn = false;
+  displayName = '';
 
   constructor(
     private http: HttpClient,
@@ -21,6 +22,10 @@ export class NavigationBarComponent implements OnInit {
     this.authorizationService
       .isLoggedInAsObservable()
       .subscribe((b) => (this.isLoggedIn = b));
+
+    this.authorizationService
+      .getLoggedInUser()
+      .subscribe((u) => (this.displayName = u ? u.username : ''));
   }
 
   openFileDialog(): void {

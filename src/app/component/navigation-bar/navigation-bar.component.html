@@ -1,13 +1,16 @@
 <mat-toolbar class="app-toolbar" color="primary">
   <span>{{ true ? "DokumentD" : "D" }}</span>
-  <button mat-button [routerLink]="['/search']">Suche</button>
+  <button mat-button [routerLink]="['/search']" [disabled]="!isLoggedIn">
+    Suche
+  </button>
   <span class="spacer"></span>
-  <button mat-button [routerLink]="['/settings']">Einstellungen</button>
-  <button
-    mat-mini-fab
-    [disabled]="!(authorizationService.isLoggedInAsObservable() | async)"
-    (click)="openFileDialog()"
-  >
+  <button mat-button [routerLink]="['/settings']" [disabled]="!isLoggedIn">
+    Einstellungen
+  </button>
+  <button mat-button disabled *ngIf="isLoggedIn">
+    {{ displayName }}
+  </button>
+  <button mat-mini-fab [disabled]="!isLoggedIn" (click)="openFileDialog()">
     <mat-icon>publish</mat-icon>
   </button>
 </mat-toolbar>
