@@ -69,7 +69,26 @@ export class DocumentEditComponent implements OnInit {
 
   formSubmit(): void {
     if (this.form.valid) {
-      // TODO Impliment
+      this.data.title = this.form.controls.title.value;
+      this.data.documentdate = this.form.controls.documentDate.value;
+      this.data.deletedate =
+        this.form.controls.deleteDate.value !== ''
+          ? this.form.controls.deleteDate.value
+          : null;
+      this.data.category =
+        this.form.controls.category.value !== ''
+          ? this.form.controls.category.value
+          : null;
+      this.data.company =
+        this.form.controls.company.value !== ''
+          ? this.form.controls.company.value
+          : null;
+      //TODO Tags
+
+      this.documentService
+        .modifyDocument(this.data)
+        .then(() => this.dialogRef.close())
+        .catch((e) => this.openErrorSnackBar('Fehler:' + e));
     }
   }
 
@@ -87,7 +106,10 @@ export class DocumentEditComponent implements OnInit {
       this.lastDeleteClick = currentDate;
       this.openErrorSnackBar('Nochmal drücken um endgültig zu löschen!');
     } else {
-      // TODO Löschen
+      this.documentService
+        .deleteDocument(this.data.documentid)
+        .then(() => this.dialogRef.close())
+        .catch((e) => this.openErrorSnackBar('Fehler:' + e));
     }
   }
 }

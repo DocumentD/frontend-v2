@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../entity/user';
 import { Router } from '@angular/router';
+import { UpdateDocumentResponse } from '../entity/update-document-response';
 
 @Injectable({
   providedIn: 'root',
@@ -71,6 +72,14 @@ export class AuthorizationService {
     this.loggedInUser.next(null);
     this.user = null;
     this.router.navigate(['login']);
+  }
+
+  public updateCategoriesAndCompanies(
+    updateDocumentResponse: UpdateDocumentResponse
+  ): void {
+    this.user.categories = updateDocumentResponse.categories;
+    this.user.companies = updateDocumentResponse.companies;
+    this.handleUserDataResponse(this.user);
   }
 
   public isLoggedIn(): boolean {
