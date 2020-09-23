@@ -13,6 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorizationHeaderInterceptor } from './interceptor/authorization-header.interceptor';
 import { DocumentEditComponent } from './component/document-edit/document-edit.component';
+import { SettingsComponent } from './component/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { DocumentEditComponent } from './component/document-edit/document-edit.c
     SearchComponent,
     LoginComponent,
     DocumentEditComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
