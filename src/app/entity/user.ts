@@ -3,4 +3,5 @@ export interface User {
   mailaddresses: string[];
   companies: string[];
   categories: string[];
+  administrator: boolean;
 }
