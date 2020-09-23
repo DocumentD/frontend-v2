@@ -13,6 +13,7 @@ import { DocumentEditComponent } from '../document-edit/document-edit.component'
 export class NavigationBarComponent implements OnInit {
   isLoggedIn = false;
   displayName = '';
+  isCurrentUploading = false;
 
   constructor(
     private http: HttpClient,
@@ -43,13 +44,17 @@ export class NavigationBarComponent implements OnInit {
       const fileList: FileList = (event.target as HTMLInputElement).files;
       for (let index = 0; index < fileList.length; index++) {
         const element = fileList.item(index);
-        this.documentService.uploadFile(element).then((document) =>
-          this.dialog.open(DocumentEditComponent, {
-            minWidth: '250px',
-            data: document,
-            disableClose: true,
-          })
-        );
+        this.isCurrentUploading = true;
+        this.documentService
+          .uploadFile(element)
+          .then((document) =>
+            this.dialog.open(DocumentEditComponent, {
+              minWidth: '250px',
+              data: document,
+              disableClose: true,
+            })
+          )
+          .finally(() => (this.isCurrentUploading = false));
       }
     }
   }

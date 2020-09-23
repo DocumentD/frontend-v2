@@ -10,7 +10,11 @@
   <button mat-button disabled *ngIf="isLoggedIn">
     {{ displayName }}
   </button>
-  <button mat-mini-fab [disabled]="!isLoggedIn" (click)="openFileDialog()">
+  <button
+    mat-mini-fab
+    [disabled]="!isLoggedIn || isCurrentUploading"
+    (click)="openFileDialog()"
+  >
     <mat-icon>publish</mat-icon>
   </button>
 </mat-toolbar>
