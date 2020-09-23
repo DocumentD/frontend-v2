@@ -13,6 +13,7 @@
   <button
     mat-mini-fab
     [disabled]="!isLoggedIn || isCurrentUploading"
+    [class.spinner]="isCurrentUploading"
     (click)="openFileDialog()"
   >
     <mat-icon>publish</mat-icon>
