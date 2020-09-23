@@ -32,15 +32,15 @@ export class DocumentService {
       });
   }
 
-  uploadFile(fileToUpload: File): Promise<void> {
+  uploadFile(fileToUpload: File): Promise<Document> {
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<Document>((resolve, reject) => {
       this.http
         .post<Document>(environment.apiEndpoint + '/document/upload', formData)
         .subscribe(
           (data) => {
-            resolve();
+            resolve(data);
           },
           (error) => {
             console.log(error);
