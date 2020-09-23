@@ -1,1 +1,8 @@
-<p>settings works!</p>
+<mat-tab-group *ngIf="loggedInUser !== null">
+  <mat-tab label="Persönlich"></mat-tab>
+  <mat-tab label="Benutzer" [disabled]="!loggedInUser.administrator">
+    <div *ngIf="loggedInUser.administrator">
+      <app-user-administration-settings></app-user-administration-settings>
+    </div>
+  </mat-tab>
+</mat-tab-group>
