@@ -9,16 +9,22 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  loggedInUser: User;
+  displayedColumns: string[] = ['username', 'administrator', 'action'];
+  dataSource: User[] = [
+    {
+      username: 'Test',
+      mailaddresses: [],
+      companies: [],
+      categories: [],
+      administrator: false,
+    },
+  ];
+  constructor() {}
 
-  constructor(
-    private authorizationService: AuthorizationService,
-    private fb: FormBuilder
-  ) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.authorizationService
-      .getLoggedInUser()
-      .subscribe((u) => (this.loggedInUser = u));
+  editUser(event: any, user: User): void {
+    // this.documentService.openDocumentPDF(document);
+    event.stopPropagation();
   }
 }
