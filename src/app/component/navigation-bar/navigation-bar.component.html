@@ -7,7 +7,7 @@
   <button mat-button [routerLink]="['/settings']" [disabled]="!isLoggedIn">
     Einstellungen
   </button>
-  <button mat-button disabled *ngIf="isLoggedIn">
+  <button mat-button *ngIf="isLoggedIn" (click)="openOwnUserDialog()">
     {{ displayName }}
   </button>
   <button
