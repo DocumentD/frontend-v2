@@ -6,6 +6,7 @@ import { AuthorizationService } from '../../service/authorization.service';
 import { DocumentService } from '../../service/document.service';
 import { DocumentEditComponent } from '../document-edit/document-edit.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
+import { Document } from '../../entity/document';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -53,11 +54,11 @@ export class NavigationBarComponent implements OnInit {
       (event.target as HTMLInputElement).files.length
     ) {
       const fileList: FileList = (event.target as HTMLInputElement).files;
-      for (let index = 0; index < fileList.length; index++) {
-        const element = fileList.item(index);
-        this.isCurrentUploading = true;
+      this.isCurrentUploading = true;
+
+      if (fileList.length === 1) {
         this.documentService
-          .uploadFile(element)
+          .uploadFile(fileList[0])
           .then((document) =>
             this.dialog.open(DocumentEditComponent, {
               minWidth: '250px',
@@ -66,6 +67,15 @@ export class NavigationBarComponent implements OnInit {
             })
           )
           .finally(() => (this.isCurrentUploading = false));
+      } else {
+        const promises: Promise<Document>[] = [];
+        for (let index = 0; index < fileList.length; index++) {
+          const element = fileList.item(index);
+          this.isCurrentUploading = true;
+          promises.push(this.documentService.uploadFile(element));
+        }
+
+        Promise.all(promises).finally(() => (this.isCurrentUploading = false));
       }
     }
   }
