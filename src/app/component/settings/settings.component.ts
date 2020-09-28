@@ -10,15 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class SettingsComponent implements OnInit {
   displayedColumns: string[] = ['username', 'administrator', 'action'];
-  dataSource: User[] = [
-    {
-      username: 'Test',
-      mailaddresses: [],
-      companies: [],
-      categories: [],
-      administrator: false,
-    },
-  ];
+  dataSource: User[] = [];
   constructor() {}
 
   ngOnInit(): void {}
