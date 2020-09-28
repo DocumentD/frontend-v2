@@ -19,8 +19,8 @@ export class UserService {
     };
     return new Promise<void>((resolve, reject) => {
       this.http
-        .post<ChangePassword>(
-          environment.apiEndpoint + '/user/changePassword',
+        .put<ChangePassword>(
+          environment.apiEndpoint + '/user/password',
           changePassword
         )
         .subscribe(
