@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { User } from 'src/app/entity/user';
 import { UserService } from 'src/app/service/user.service';
 import { AuthorizationService } from '../../service/authorization.service';
@@ -16,6 +20,7 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ChangePasswordComponent>,
+    private matDialogs: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: User,
     private fb: FormBuilder,
     private userService: UserService,
@@ -60,9 +65,9 @@ export class ChangePasswordComponent implements OnInit {
           this.form.controls.new_password.value
         )
         .then(() => {
-          this.dialogRef.close();
           this.authorizationService.logout();
-        }) // TODO Possible logout!
+          this.matDialogs.closeAll();
+        })
         .catch(() => (this.isSumbiting = false));
     }
   }
