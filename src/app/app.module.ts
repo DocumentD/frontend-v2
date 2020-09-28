@@ -15,6 +15,7 @@ import { AuthorizationHeaderInterceptor } from './interceptor/authorization-head
 import { DocumentEditComponent } from './component/document-edit/document-edit.component';
 import { SettingsComponent } from './component/settings/settings.component';
 import { UserEditComponent } from './component/user-edit/user-edit.component';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UserEditComponent } from './component/user-edit/user-edit.component';
     DocumentEditComponent,
     SettingsComponent,
     UserEditComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,39 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ChangePassword } from '../entity/change-password';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   constructor(private http: HttpClient) {}
+
+  public changePassword(
+    oldpassword: string,
+    newpassword: string
+  ): Promise<void> {
+    const changePassword: ChangePassword = {
+      oldpassword,
+      newpassword,
+    };
+    return new Promise<void>((resolve, reject) => {
+      this.http
+        .post<ChangePassword>(
+          environment.apiEndpoint + '/user/changePassword',
+          changePassword
+        )
+        .subscribe(
+          (data) => {
+            resolve();
+          },
+          (error) => {
+            console.log(error);
+            reject();
+          }
+        );
+    });
+  }
 
   public unconnectMailAddress(mailAddress: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {

@@ -7,6 +7,7 @@ import {
 } from '@angular/material/dialog';
 import { User } from 'src/app/entity/user';
 import { UserService } from 'src/app/service/user.service';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -47,10 +48,10 @@ export class UserEditComponent implements OnInit {
   }
 
   changePassword(): void {
-    //    const dialogRef = this.dialog.open(ChangePasswordComponent, {
-    //      minWidth: '600px',
-    //      data: this.data,
-    //    });
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      minWidth: '600px',
+      data: this.data,
+    });
   }
 
   remove(address: string): void {
