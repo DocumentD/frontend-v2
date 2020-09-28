@@ -14,6 +14,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorizationHeaderInterceptor } from './interceptor/authorization-header.interceptor';
 import { DocumentEditComponent } from './component/document-edit/document-edit.component';
 import { SettingsComponent } from './component/settings/settings.component';
+import { UserEditComponent } from './component/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SettingsComponent } from './component/settings/settings.component';
     LoginComponent,
     DocumentEditComponent,
     SettingsComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,

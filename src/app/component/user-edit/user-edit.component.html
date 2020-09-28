@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Benutzer</h1>
+<div mat-dialog-content>
+  <form class="example-form" [formGroup]="form">
+    <mat-form-field class="example-full-width">
+      <mat-label>ID (disabled)</mat-label>
+      <input matInput disabled [value]="data.userid" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        #username
+        maxlength="16"
+        disabled
+        [value]="data.username"
+      />
+      <mat-hint align="end">{{ username.value.length }} / 16</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Verbindungs-Password</mat-label>
+      <input matInput #pw maxlength="255" disabled [value]="connectPassword" />
+      <mat-hint align="end">{{ pw.value.length }} / 255</mat-hint>
+      <button mat-icon-button matSuffix (click)="getNewConnectPassword()">
+        <mat-icon>{{ "cached" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip
+          *ngFor="let address of mailAddresses"
+          selectable="false"
+          removable="true"
+          (removed)="remove(address)"
+        >
+          {{ address }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input [matChipInputFor]="chipList" disabled />
+      </mat-chip-list>
+      <mat-hint>Verknüpfte E-Mail Adressen</mat-hint>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="changePassword()">Passwort ändern</button>
+  <span class="spacer"></span>
+  <button mat-button (click)="onClose()">Schlie­ßen</button>
+</div>
