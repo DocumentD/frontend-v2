@@ -52,6 +52,23 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-chip-list #taglist aria-label="Tag selection">
+        <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+          {{ tag }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Neuer Tag"
+          [matChipInputFor]="taglist"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          matChipInputAddOnBlur="true"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+
     <mat-form-field class="example-full-width">
       <mat-label>Dokument Datum</mat-label>
       <input matInput type="date" formControlName="documentDate" required />

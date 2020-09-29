@@ -1,3 +1,4 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -8,6 +9,7 @@ import { AuthorizationService } from '../../service/authorization.service';
 import { Document } from '../../entity/document';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-document-edit',
@@ -21,6 +23,10 @@ export class DocumentEditComponent implements OnInit {
   sortedCompanies: string[];
   filteredCompanies: Observable<string[]>;
   lastDeleteClick: Date = new Date(0);
+
+  tags: string[] = [];
+
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
     public dialogRef: MatDialogRef<DocumentEditComponent>,
@@ -42,6 +48,8 @@ export class DocumentEditComponent implements OnInit {
       documentDate: [this.data.documentdate, [Validators.required]],
       deleteDate: [this.data.deletedate ? this.data.deletedate : ''],
     });
+
+    this.tags = this.data.tags.slice();
 
     this.filteredCategories = this.form.controls.category.valueChanges.pipe(
       startWith(''),
@@ -83,7 +91,8 @@ export class DocumentEditComponent implements OnInit {
         this.form.controls.company.value !== ''
           ? this.form.controls.company.value
           : null;
-      //TODO Tags
+
+      this.data.tags = this.tags.slice();
 
       this.documentService
         .modifyDocument(this.data)
@@ -110,6 +119,27 @@ export class DocumentEditComponent implements OnInit {
         .deleteDocument(this.data.documentid)
         .then(() => this.dialogRef.close())
         .catch((e) => this.openErrorSnackBar('Fehler:' + e));
+    }
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      this.tags.push(value.trim());
+    }
+
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(tagname: string): void {
+    const index = this.tags.indexOf(tagname);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
     }
   }
 }
