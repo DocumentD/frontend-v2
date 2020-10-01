@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Dokument</h1>
 <div mat-dialog-content>
-  <form class="example-form" [formGroup]="form">
-    <mat-form-field class="example-full-width">
+  <form class="full-width-form" [formGroup]="form">
+    <mat-form-field class="full-width">
       <mat-label>ID (disabled)</mat-label>
       <input matInput disabled [value]="data.documentid" />
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <mat-label>Titel</mat-label>
       <input
         matInput
@@ -17,7 +17,7 @@
       />
       <mat-hint align="end">{{ title.value.length }} / 64</mat-hint>
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <mat-label>Firma</mat-label>
       <input
         type="text"
@@ -35,7 +35,7 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <mat-label>Kategory</mat-label>
       <input
         type="text"
@@ -53,7 +53,7 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <mat-chip-list #taglist aria-label="Tag selection">
         <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
           {{ tag }}
@@ -69,11 +69,11 @@
       </mat-chip-list>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <mat-label>Dokument Datum</mat-label>
       <input matInput type="date" formControlName="documentDate" required />
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <mat-label>Lösch Datum</mat-label>
       <input matInput type="date" formControlName="deleteDate" />
     </mat-form-field>
