@@ -7,7 +7,7 @@ import { TitleService } from './service/title.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'DD';
+  title = 'DokumentD';
 
   constructor(private titleService: TitleService) {}
 
