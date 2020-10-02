@@ -10,13 +10,15 @@ const routes: Routes = [
     path: 'search',
     component: SearchComponent,
     canActivate: [AuthGuard],
+    data: {title: 'Suche'}
   },
   {
     path: 'settings',
     component: SettingsComponent,
     canActivate: [AuthGuard],
+    data: { title: 'Einstellungen' },
   },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, data: { title: 'Anmeldung' } },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },
 ];
