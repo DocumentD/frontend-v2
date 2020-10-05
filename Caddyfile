@@ -1,0 +1,8 @@
+:80
+root * /usr/share/caddy
+# Compress
+encode gzip zstd
+# Configure path router support for Angular
+try_files {path} {path}/ /index.html
+# Serve everything else like assets from the file system 
+file_server

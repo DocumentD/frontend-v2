@@ -10,6 +10,6 @@ COPY . .
 
 RUN npm run build --prod
 
-FROM nginx:1.19-alpine
-
-COPY --from=builder /usr/src/app/dist/documentd-frontend /usr/share/nginx/html
+FROM caddy:2.2.0-alpine
+COPY Caddyfile /etc/caddy/Caddyfile
+COPY --from=builder /usr/src/app/dist/documentd-frontend /usr/share/caddy
