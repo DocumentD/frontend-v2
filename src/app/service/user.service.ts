@@ -28,7 +28,7 @@ export class UserService {
             resolve();
           },
           (error) => {
-            console.log(error);
+            console.error(error);
             reject();
           }
         );
@@ -44,7 +44,7 @@ export class UserService {
             resolve();
           },
           (error) => {
-            console.log(error);
+            console.error(error);
             reject();
           }
         );
@@ -62,7 +62,7 @@ export class UserService {
             resolve(data);
           },
           (error) => {
-            console.log(error);
+            console.error(error);
             reject();
           }
         );

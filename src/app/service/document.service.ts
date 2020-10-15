@@ -43,7 +43,7 @@ export class DocumentService {
             resolve(data);
           },
           (error) => {
-            console.log(error);
+            console.error(error);
             reject();
           }
         );
@@ -63,7 +63,7 @@ export class DocumentService {
             resolve();
           },
           (error) => {
-            console.log(error);
+            console.error(error);
             reject();
           }
         );
@@ -82,7 +82,7 @@ export class DocumentService {
             resolve();
           },
           (error) => {
-            console.log(error);
+            console.error(error);
             reject();
           }
         );
