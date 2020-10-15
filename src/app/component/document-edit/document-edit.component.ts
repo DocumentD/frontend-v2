@@ -98,7 +98,10 @@ export class DocumentEditComponent implements OnInit {
 
       this.documentService
         .modifyDocument(this.data)
-        .then(() => this.dialogRef.close())
+        .then(() => {
+          this.dialogRef.close();
+          this.globalEventService.sendReloadTableEvent();
+        })
         .catch((e) => this.openErrorSnackBar('Fehler:' + e));
     }
   }
