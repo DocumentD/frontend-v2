@@ -74,7 +74,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
     // Reload table when table reload "event" is fired
     this.globalEventService.reloadTableEvent.subscribe(() => {
       this.loadDocumentsPage();
-      console.log('Reload');
     });
   }
 
@@ -89,11 +88,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
   openDocument(event: any, document: Document): void {
     this.documentService.openDocumentPDF(document);
     event.stopPropagation();
-  }
-
-  blub(doc: any) {
-    console.log(doc);
-    console.log(Object.keys(doc._matchesInfo).length);
   }
 
   hasMatchesDetials(document: Document): boolean {
@@ -158,8 +152,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   openDocumentDetails(document: Document): void {
-    console.log('Blub');
-    console.log(document);
     this.dialog.open(DocumentEditComponent, {
       minWidth: '250px',
       data: document,

@@ -25,7 +25,6 @@ export class DocumentDataSource implements DataSource<Document> {
   }
 
   loadDocuments(filter = '', pageIndex = 0, pageSize = 3) {
-    console.log('2');
     this.loadingSubject.next(true);
     this.documentSubject.next([]);
 

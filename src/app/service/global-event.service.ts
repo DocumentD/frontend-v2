@@ -13,7 +13,6 @@ export class GlobalEventService {
   constructor() {}
 
   public sendReloadTableEvent(): void {
-    console.log('Test');
     this.reloadTableSource.next();
   }
 }
