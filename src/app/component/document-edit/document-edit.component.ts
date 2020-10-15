@@ -10,6 +10,7 @@ import { Document } from '../../entity/document';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { GlobalEventService } from 'src/app/service/global-event.service';
 
 @Component({
   selector: 'app-document-edit',
@@ -34,7 +35,8 @@ export class DocumentEditComponent implements OnInit {
     private fb: FormBuilder,
     private documentService: DocumentService,
     private authorizationService: AuthorizationService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private globalEventService: GlobalEventService
   ) {}
 
   ngOnInit(): void {
@@ -117,7 +119,10 @@ export class DocumentEditComponent implements OnInit {
     } else {
       this.documentService
         .deleteDocument(this.data.documentid)
-        .then(() => this.dialogRef.close())
+        .then(() => {
+          this.dialogRef.close();
+          this.globalEventService.sendReloadTableEvent();
+        })
         .catch((e) => this.openErrorSnackBar('Fehler:' + e));
     }
   }

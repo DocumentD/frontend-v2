@@ -17,6 +17,7 @@ import { Document } from '../../entity/document';
 import { Match } from '../../entity/match';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentEditComponent } from '../document-edit/document-edit.component';
+import { GlobalEventService } from '../../service/global-event.service';
 
 @Component({
   selector: 'app-search',
@@ -45,7 +46,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   constructor(
     private searchService: SearchService,
     public documentService: DocumentService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private globalEventService: GlobalEventService
   ) {}
 
   ngOnInit() {
@@ -68,6 +70,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     // paginate events, load a new page
     this.paginator.page.pipe(tap(() => this.loadDocumentsPage())).subscribe();
+
+    // Reload table when table reload "event" is fired
+    this.globalEventService.reloadTableEvent.subscribe(() => {
+      this.loadDocumentsPage();
+      console.log('Reload');
+    });
   }
 
   loadDocumentsPage() {

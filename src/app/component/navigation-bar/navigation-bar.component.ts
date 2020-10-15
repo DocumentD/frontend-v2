@@ -7,6 +7,7 @@ import { DocumentService } from '../../service/document.service';
 import { DocumentEditComponent } from '../document-edit/document-edit.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
 import { Document } from '../../entity/document';
+import { GlobalEventService } from '../../service/global-event.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -23,7 +24,8 @@ export class NavigationBarComponent implements OnInit {
     private http: HttpClient,
     public authorizationService: AuthorizationService,
     private documentService: DocumentService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private globalEventService: GlobalEventService
   ) {}
 
   ngOnInit(): void {
@@ -59,20 +61,23 @@ export class NavigationBarComponent implements OnInit {
       if (fileList.length === 1) {
         this.documentService
           .uploadFile(fileList[0])
-          .then((document) =>
+          .then((document) => {
             this.dialog.open(DocumentEditComponent, {
               minWidth: '250px',
               data: document,
               disableClose: true,
-            })
-          )
+            });
+            this.globalEventService.sendReloadTableEvent();
+          })
           .finally(() => (this.isCurrentUploading = false));
       } else {
         const promises: Promise<Document>[] = [];
         for (let index = 0; index < fileList.length; index++) {
           const element = fileList.item(index);
           this.isCurrentUploading = true;
-          promises.push(this.documentService.uploadFile(element));
+          const promise = this.documentService.uploadFile(element);
+          promise.then(() => this.globalEventService.sendReloadTableEvent());
+          promises.push(promise);
         }
 
         Promise.all(promises).finally(() => (this.isCurrentUploading = false));
