@@ -97,7 +97,10 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   hasMatchesDetials(document: Document): boolean {
-    return Object.keys(document._matchesInfo).length > 0;
+    if (document._matchesInfo) {
+      return Object.keys(document._matchesInfo).length > 0;
+    }
+    return false;
   }
 
   getMatchColumn(document: Document): string {
